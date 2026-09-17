@@ -288,7 +288,7 @@ API defaults to http://localhost:8765/v1; management to http://localhost:8766.
 
 ## 当前状态
 
-当前发布为 **`v0.2.0-preview.1` 预览版**，**全功能验收尚未通过**。我们宁可把边界写清楚，也不把预览版说成稳定版。
+当前发布为 **`v0.2.0-preview.2` 预览版**，**全功能验收尚未通过**。首次使用可在 [Release](https://github.com/yike-citing/uart2llm/releases) 直接下载 `uart2llm-windows-x64-offline.zip`，内含 Agent EXE、ESP32 固件、配对与烧录工具及使用说明，无需拉取源码。
 
 下面所有结论都来自**特定开发设备、版本与负载**，不是对任意模型、客户端或硬件的兼容保证；某项"已验证"只代表该项在它的测试范围内通过。
 

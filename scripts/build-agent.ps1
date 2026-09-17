@@ -1,5 +1,5 @@
 #Requires -Version 7.0
-param([string]$Version = '0.2.0-preview.1')
+param([string]$Version = '0.2.0-preview.2')
 $ErrorActionPreference = 'Stop'
 if ($Version -notmatch '^\d+\.\d+\.\d+([-.][A-Za-z0-9.]+)?$') { throw 'Invalid version' }
 $root = Split-Path $PSScriptRoot -Parent

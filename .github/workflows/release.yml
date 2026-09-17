@@ -160,7 +160,8 @@ jobs:
           for name in uart2llm-agent-windows-x64.exe uart2llm-device-tools-windows-x64.zip uart2llm-firmware-uart.zip uart2llm-firmware-usb-validation.zip LICENSES.txt README.md; do
             test -s "release-assets/$name"
           done
+          python3 scripts/package-offline.py --assets release-assets
           (cd release-assets && sha256sum *.exe *.zip *.txt *.md > SHA256SUMS)
-          gh release create "$RELEASE_TAG" --verify-tag --draft --prerelease --title "uart2llm $RELEASE_TAG · Windows 单 EXE Agent" --notes-file docs/RELEASE.md
+          gh release create "$RELEASE_TAG" --verify-tag --draft --prerelease --title "uart2llm $RELEASE_TAG · Agent + ESP32 完整离线包" --notes-file docs/RELEASE.md
           gh release upload "$RELEASE_TAG" release-assets/*
           gh release edit "$RELEASE_TAG" --draft=false
