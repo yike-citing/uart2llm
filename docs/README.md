@@ -15,5 +15,6 @@
 | 接入 DeepSeek Harness | [可选集成](../integrations/deepseek-harness/README.md) |
 | 贡献或报告安全问题 | [贡献指南](../CONTRIBUTING.md)、[安全说明](../SECURITY.md) |
 | 查看开源整理记录 | [发布整理记录](development/2026-09-17-open-source.md) |
+| 查看云端编译和附件验证 | [GitHub 发布记录](development/2026-09-17-github-release.md) |
 
 文档中的占位端口、Wi-Fi 和路径需按自己的环境填写。源码副本不携带原开发者会话、测试账户、设备身份或原始硬件日志。

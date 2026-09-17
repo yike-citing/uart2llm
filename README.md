@@ -25,7 +25,7 @@ uart2llm 通过一个轻量本地 Agent 和配套 ESP32，为你的电脑提供�
 | 客户端配置 | 填写内容 |
 |---|---|
 | Base URL | `http://localhost:8765/v1` |
-| API key | `uart2llm.exe token api` 输出的本地 token |
+| API key | `uart2llm-agent-windows-x64.exe token api` 输出的本地 token |
 | 模型 | 已配置上游提供的模型 |
 
 当前支持 Chat Completions 等接口，**后续计划兼容 Responses API**。具体兼容程度取决于客户端使用的接口和上游能力。
@@ -60,7 +60,7 @@ Agent 通过串口与 ESP32 通信，不在 Windows 中创建网络接口、不�
 3. 在管理页面设置 Wi-Fi 和上游模型服务。
 4. 在 IDE 或其他工具中填写本地接口地址与 API key。
 
-当前为 `0.2.0-dev` 开发预览。接口范围、客户端独立联网功能与验证情况见[验证状态](docs/VALIDATION.md)。
+当前发布为 `v0.2.0-preview.1` 预览版。接口范围、客户端独立联网功能与验证情况见[验证状态](docs/VALIDATION.md)；[云端构建与附件验证记录](docs/development/2026-09-17-github-release.md)已公开。
 
 ## 开发与贡献
 
