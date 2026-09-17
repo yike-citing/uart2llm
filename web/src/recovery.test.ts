@@ -1,0 +1,9 @@
+import {afterEach,describe,expect,it,vi} from 'vitest';
+import {EventRecovery} from './recovery';
+afterEach(()=>vi.useRealTimers());
+describe('bounded event stream recovery',()=>{
+ it('uses exactly five delays and stops until explicitly recreated',()=>{vi.useFakeTimers();const exhausted=vi.fn(),retry=vi.fn(),r=new EventRecovery(exhausted);for(const [i,delay] of [1000,2000,4000,8000,15000].entries()){expect(r.schedule(retry)).toBe(i+1);vi.advanceTimersByTime(delay-1);expect(retry).toHaveBeenCalledTimes(i);vi.advanceTimersByTime(1);expect(retry).toHaveBeenCalledTimes(i+1);}expect(r.schedule(retry)).toBeNull();expect(exhausted).toHaveBeenCalledOnce();vi.advanceTimersByTime(60000);expect(retry).toHaveBeenCalledTimes(5);});
+ it('does not reset retries when the server repeatedly opens and immediately closes',()=>{vi.useFakeTimers();const exhausted=vi.fn(),r=new EventRecovery(exhausted);for(let i=0;i<5;i++){r.opened();vi.advanceTimersByTime(10);expect(r.schedule(()=>{})).toBe(i+1);vi.advanceTimersByTime(15000);}r.opened();vi.advanceTimersByTime(100);expect(r.schedule(()=>{})).toBeNull();expect(exhausted).toHaveBeenCalledOnce();r.dispose();});
+ it('resets its retry budget only after thirty uninterrupted seconds',()=>{vi.useFakeTimers();const r=new EventRecovery(vi.fn());expect(r.schedule(()=>{})).toBe(1);vi.advanceTimersByTime(1000);r.opened();vi.advanceTimersByTime(29999);expect(r.schedule(()=>{})).toBe(2);vi.advanceTimersByTime(2000);r.opened();vi.advanceTimersByTime(30000);expect(r.schedule(()=>{})).toBe(1);r.dispose();});
+ it('disposes both pending retry and stable timers and cannot restart',()=>{vi.useFakeTimers();const r=new EventRecovery(vi.fn()),retry=vi.fn();r.schedule(retry);r.opened();expect(vi.getTimerCount()).toBe(2);r.dispose();expect(vi.getTimerCount()).toBe(0);vi.advanceTimersByTime(60000);expect(retry).not.toHaveBeenCalled();expect(r.schedule(retry)).toBeNull();r.opened();expect(vi.getTimerCount()).toBe(0);});
+});

@@ -1,0 +1,1118 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "uart2llm management API",
+    "version": "1.0.0",
+    "description": "Loopback only. Browser requests must match Host/Origin; tokens and secret settings are never returned implicitly."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8766"
+    }
+  ],
+  "paths": {
+    "/admin/v1/session": {
+      "post": {
+        "summary": "Automatically create a passwordless local browser session",
+        "operationId": "post_session",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          },
+          "415": {
+            "description": "application/json required"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "deprecated": true,
+                    "description": "Ignored compatibility field; omit for passwordless access."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Same-origin application/json POST with {}. No password or token input required. HttpOnly SameSite=Strict cookie expires after eight hours. Invalid Host, Origin or cross-site Fetch Metadata is rejected."
+      },
+      "delete": {
+        "summary": "End browser session",
+        "operationId": "delete_session",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/state": {
+      "get": {
+        "summary": "Read latest host and device state",
+        "operationId": "get_state",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/state/schema": {
+      "get": {
+        "summary": "Read complete device telemetry registry",
+        "operationId": "get_state_schema",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/ports": {
+      "get": {
+        "summary": "List Windows COM ports",
+        "operationId": "get_ports",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/capabilities": {
+      "get": {
+        "summary": "Read host and device capabilities",
+        "operationId": "get_capabilities",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/config/schema": {
+      "get": {
+        "summary": "Read all configurable fields",
+        "operationId": "get_config_schema",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/config": {
+      "get": {
+        "summary": "Read redacted desired/effective/persisted settings",
+        "operationId": "get_config",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update host settings OR stage/apply device settings",
+        "operationId": "patch_config",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Exactly one of host or device per request. Device uses flat dotted keys; PATCH stages and applies only; POST confirm within 30 seconds persists it.",
+                "properties": {
+                  "host": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "device": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/config/confirm": {
+      "post": {
+        "summary": "Persist pending device configuration",
+        "operationId": "post_config_confirm",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/config/rollback": {
+      "post": {
+        "summary": "Restore confirmed device configuration",
+        "operationId": "post_config_rollback",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/connect": {
+      "post": {
+        "summary": "Connect UART and attempt saved pairing",
+        "operationId": "post_connect",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "port"
+                ],
+                "properties": {
+                  "port": {
+                    "type": "string",
+                    "example": "COM3"
+                  },
+                  "baud": {
+                    "type": "integer",
+                    "default": 115200
+                  },
+                  "flow_control": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/disconnect": {
+      "post": {
+        "summary": "Disconnect and disable automatic reconnect",
+        "operationId": "post_disconnect",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/pair": {
+      "post": {
+        "summary": "Authenticate device with per-device pairing credentials",
+        "operationId": "post_pair",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "writeOnly": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/credentials": {
+      "post": {
+        "summary": "Store upstream API key in Windows Credential Manager",
+        "operationId": "post_credentials",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "upstream_key"
+                ],
+                "properties": {
+                  "upstream_key": {
+                    "type": "string",
+                    "writeOnly": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/api-token": {
+      "get": {
+        "summary": "Explicitly reveal local API token",
+        "operationId": "get_api-token",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/events": {
+      "get": {
+        "summary": "Subscribe to state SSE",
+        "operationId": "get_events",
+        "responses": {
+          "200": {
+            "description": "One state event per second; reconnect obtains current snapshot",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/logs": {
+      "get": {
+        "summary": "Read bounded host and device logs",
+        "operationId": "get_logs",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/diagnostics": {
+      "post": {
+        "summary": "Wi-Fi scan, network state, diagnostic export",
+        "operationId": "post_diagnostics",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "wifi_scan",
+                      "network",
+                      "health",
+                      "snapshot",
+                      "export",
+                      "wifi_reconnect"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/device/action": {
+      "post": {
+        "summary": "Reboot or restore default configuration",
+        "operationId": "post_device_action",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "reboot",
+                      "factory_reset"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/v1/firmware": {
+      "post": {
+        "summary": "Stream firmware image over secured UART",
+        "operationId": "post_firmware",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          },
+          "description": "Content-Length required; 1..4194304 bytes. No active upstream requests. Streaming, no whole-file buffering."
+        }
+      }
+    },
+    "/admin/v1/shutdown": {
+      "post": {
+        "summary": "Stop daemon",
+        "operationId": "post_shutdown",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/openapi.json": {
+      "get": {
+        "summary": "Read management API description",
+        "operationId": "get_openapi_json",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Validation or device operation failed"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Origin or Host rejected"
+          },
+          "409": {
+            "description": "Conflicting maintenance/transaction"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ]
+      }
+    },
+    "/admin/v1/tasks": {
+      "get": {
+        "summary": "Task priorities, states and free stack, aggregated from device pages",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device task registry"
+          }
+        }
+      }
+    },
+    "/admin/v1/metrics": {
+      "get": {
+        "summary": "Read counters for this daemon run; provider-reported usage only, missing usage is explicit",
+        "operationId": "get_metrics",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request counts, active/paused state, bytes, latency and token usage"
+          },
+          "401": {
+            "description": "Authentication required"
+          }
+        }
+      }
+    },
+    "/admin/v1/proxy/pause": {
+      "post": {
+        "summary": "Pause or resume admission; existing requests continue and user pause is independent of maintenance",
+        "operationId": "set_proxy_paused",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "paused"
+                ],
+                "properties": {
+                  "paused": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paused flag and active count"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "409": {
+            "description": "Management or maintenance conflict"
+          }
+        }
+      }
+    },
+    "/admin/v1/models": {
+      "get": {
+        "responses": {
+          "401": {
+            "description": "Local management session required"
+          },
+          "200": {
+            "description": "OpenAI models response; counted in proxy metrics"
+          },
+          "503": {
+            "description": "Gateway paused, busy or unavailable"
+          }
+        },
+        "summary": "Check upstream models through the existing ESP32 gateway",
+        "operationId": "get_models"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "browserSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "uart2llm_session"
+      }
+    }
+  }
+}

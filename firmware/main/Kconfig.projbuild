@@ -1,0 +1,46 @@
+menu "uart2llm board wiring"
+config U2_USB_VALIDATION
+    bool "Use native USB Serial/JTAG for hardware validation (not production UART)"
+    default n
+    depends on SOC_USB_SERIAL_JTAG_SUPPORTED
+    help
+        Uses the same binary protocol over the ESP32-S3 native USB controller.
+        Select no ESP-IDF console to prevent mixing logs with binary frames.
+        UART GPIO and baud/flow control are not active in this build.
+config U2_UART_NUM
+    int "Tunnel UART controller"
+    range 0 2
+    default 1
+config U2_UART_TX
+    int "Tunnel TX GPIO"
+    range 0 48
+    default 17
+config U2_UART_RX
+    int "Tunnel RX GPIO"
+    range 0 48
+    default 18
+config U2_UART_RTS
+    int "Tunnel RTS GPIO (-1 absent)"
+    range -1 48
+    default -1
+config U2_UART_CTS
+    int "Tunnel CTS GPIO (-1 absent)"
+    range -1 48
+    default -1
+config U2_SPI_MOSI
+    int "Reserved future SPI MOSI (-1 unused)"
+    range -1 48
+    default -1
+config U2_SPI_MISO
+    int "Reserved future SPI MISO (-1 unused)"
+    range -1 48
+    default -1
+config U2_SPI_CLK
+    int "Reserved future SPI clock (-1 unused)"
+    range -1 48
+    default -1
+config U2_SPI_CS
+    int "Reserved future SPI CS (-1 unused)"
+    range -1 48
+    default -1
+endmenu
