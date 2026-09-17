@@ -16,6 +16,30 @@
 
 ## 云端结果
 
-计划发布 `v0.2.0-preview.2`。云端构建完成并下载公开附件后补充实际运行与校验结果。
+[Release v0.2.0-preview.2](https://github.com/yike-citing/uart2llm/releases/tag/v0.2.0-preview.2) 已公开，源码提交 `44fbe9ebbb074ecad5998a7045bac0f1d3561a9e`。
+
+[GitHub Actions 35181242033](https://github.com/yike-citing/uart2llm/actions/runs/35181242033) 全部成功：
+
+| 检查 | 实际结果 |
+|---|---|
+| Windows Web 构建与测试、Go vet 与测试 | 通过 |
+| Python 与 Harness 调度器回归 | 通过 |
+| 单 EXE 版本、内嵌页面、后台启动/复用/关闭 | 通过 |
+| 独立配对与烧录工具构建、启动 | 通过 |
+| ESP-IDF UART 固件与 USB 验证固件编译 | 均通过 |
+| 完整离线包生成、Release 附件发布 | 通过 |
+
+## 公开附件下载复核
+
+从已公开的 Release 重新下载全部 8 个附件，核对 GitHub digest、发布 `SHA256SUMS`、所有 ZIP CRC、固件内部散列与版本、Agent Windows GUI 子系统与嵌入版本，全部通过。
+
+完整包内含 180 个文件，逐项通过内部 SHA-256 校验；EXE、说明、许可证和各组件内容均与独立附件逐字节一致。未包含预生成设备配对凭据。
+
+| 下载项 | 字节数 | SHA-256 |
+|---|---:|---|
+| `uart2llm-windows-x64-offline.zip` | 35,707,898 | `8b3e5276bb38e1876887989959004b5c54ffa2d9319d66783979e77a8dabc895` |
+| `uart2llm-agent-windows-x64.exe` | 7,951,360 | `9436ab2fe74b9b6d3ae41bf565a1dda7c8fc525597c5d5dd6be1037dd0f7287a` |
+
+本轮没有连接设备重新烧录或运行模型负载；验证范围为云端编译、自动化回归、单 EXE 生命周期和发布包完整性，不改变先前硬件与模型验收结论。
 
 此次发布改进分发方式，不增加模型接口或硬件验收结论；保留预览版标记。
